@@ -48,8 +48,32 @@ namespace Sistema_de_acceso
                 if (usuario.Length == 13)
                 {
                     Console.WriteLine("Ingrese su contraseña");
-                    contra = Console.ReadLine();
-                  
+                    contra = "";
+
+                    do
+                    {
+                        
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        // Backspace Should Not Work
+                        
+                        if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                        {
+                            contra += key.KeyChar;
+                            Console.Write("*");
+                        }
+                        else
+                        {
+                            if (key.Key == ConsoleKey.Backspace && contra.Length > 0)
+                            {
+                                contra = contra.Substring(0, (contra.Length - 1));
+                                Console.Write("\b \b");
+                            }
+                            else if (key.Key == ConsoleKey.Enter)
+                            {
+                                break;
+                            }
+                        }
+                    } while (true);
                     isNumeric = int.TryParse(contra, out n);
 
                     if (isNumeric)
@@ -76,10 +100,11 @@ namespace Sistema_de_acceso
                                     }
                                     
                                     b = true;
-                                    Console.WriteLine("\nPresione enter para cerrar sesion...");
+                                    Console.WriteLine("\nPresione cualquier tecla para cerrar sesion...");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    Console.WriteLine("Desea volver a entrar con otro usuario?(S/N)");
+                                    Console.WriteLine("Si desea volver a entrar con otro usuario escriba: 'S'");
+                                    Console.WriteLine("\nSi no, presione cualquier otra tecla");
                                     confirmar = Console.ReadLine();
                                     if (confirmar == "S")
                                     {
@@ -119,7 +144,7 @@ namespace Sistema_de_acceso
                 if (error)
                 {
                     Console.WriteLine("\n\n===================================");
-                    Console.WriteLine("Presione enter para reiniciar el programa...");
+                    Console.WriteLine("Presione cualquier tecla para reiniciar el programa...");
                     Console.ReadKey();
                     error = false;
                 }
