@@ -16,6 +16,10 @@ namespace Sistema_de_acceso
              * Usuario de Administrador: 123-4567891-0, contra: 4567
              * Usuario de Vendedor: 109-8765432-1, contra: 8910 (este usuario se encuentra inactivo)
              * Usuario de Vendedor: 123-1098765-4, contra: 1010 
+             * 
+             * El programa esta pensado para que en un futuro se le puedan agregar funciones especificas a cada rol
+             * por esa razon, decidí que cada rol se encuentre de manera individual, a pesar de que actualmente no tienen muchas
+             * cosas que lo difencíen uno de otro.
              */
             string usuario,contra,confirmar;           
             int n;
@@ -23,7 +27,7 @@ namespace Sistema_de_acceso
             string[] users = {"001-1234567-8","123-4567891-0","109-8765432-1","123-1098765-4"};
             int[] pass = {0123,4567,8910,1010 },rol = {1,2,3,3};
             bool[] estado = { true, true, false, true};
-            string[] nom_usu = {"Escarllet", "Miguel", "Syntia", "Romero" };
+            string[] nom_usu = {"Escarllet Suriel", "Miguel Almonte", "Syntia Guerrero", "Romero de los Santos" };
             DateTime d0 = new DateTime(2020, 09, 20, 20, 35, 50);
             DateTime d1 = new DateTime(2010, 12, 30, 13, 48, 40);
             DateTime d2 = new DateTime(2020, 07, 14, 07, 24, 00);
@@ -32,7 +36,8 @@ namespace Sistema_de_acceso
 
             do
             {
-                b = false;
+
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Clear();
                 Console.WriteLine(" ______  _                              _     _          _     _");
                 Console.WriteLine("(____   (_)                            (_)   | |        | |   | |");
@@ -41,7 +46,7 @@ namespace Sistema_de_acceso
                 Console.WriteLine("| |__)  ) | ____| | |   V /| ____| | | | ( (_| | |_| / // ___ |_ ");
                 Console.WriteLine("|______/|_|_____)_| |_| _/ |_____)_| |_|_| ____| ___/_/ |_____|_|");
                 Console.WriteLine("===================================================================");
-                Console.WriteLine("\nPor favor ingrese su nombre usuario (cedula con guiones)");
+                Console.WriteLine("\nPor favor ingrese su nombre de usuario (cedula con guiones)");
                 usuario = Console.ReadLine();
                 
                 
@@ -74,6 +79,7 @@ namespace Sistema_de_acceso
                             }
                         }
                     } while (true);
+
                     isNumeric = int.TryParse(contra, out n);
 
                     if (isNumeric)
@@ -100,11 +106,14 @@ namespace Sistema_de_acceso
                                     }
                                     
                                     b = true;
-                                    Console.WriteLine("\nPresione cualquier tecla para cerrar sesion...");
+                                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                    Console.WriteLine("\n\nPresione cualquier tecla para cerrar sesion...");
                                     Console.ReadKey();
+                                    Console.ForegroundColor = ConsoleColor.Black;
                                     Console.Clear();
-                                    Console.WriteLine("Si desea volver a entrar con otro usuario escriba: 'S'");
-                                    Console.WriteLine("\nSi no, presione cualquier otra tecla");
+                                    Console.WriteLine("¿Desea volver a iniciar sesion con otro usuario?");
+                                    Console.WriteLine("\n Escriba 'S' para volver a iniciar sesion.");
+                                    Console.WriteLine("\n Ingrese cualquier otro caracter para salir del programa.");
                                     confirmar = Console.ReadLine();
                                     if (confirmar == "S")
                                     {
@@ -117,6 +126,7 @@ namespace Sistema_de_acceso
                                 }
                                 else
                                 {
+                                    Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("\nError: Su cuenta no esta activa, ingrese con otra cuenta.");
                                     error = true;
                                 }
@@ -124,6 +134,7 @@ namespace Sistema_de_acceso
                             }
                             else if (b == false)
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("\nError: Usuario o contraseña INCORRECTAS (o el usuario no existe).");
                                 b = true;
                                 error = true;
@@ -132,27 +143,30 @@ namespace Sistema_de_acceso
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\nError: La contraseña solo puede constar de numeros (la contra es incorrecta).");
                         error = true;
                     }
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\nError: Usuario no valido, por favor escribir la cedula completa, con guiones");
+                    
                     error = true;
                 }
                 if (error)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("\n\n===================================");
                     Console.WriteLine("Presione cualquier tecla para reiniciar el programa...");
                     Console.ReadKey();
                     error = false;
                 }
+                b = false;
             } while (a);
 
-            Console.Clear();
-            Console.WriteLine("Finalizando programa...");
-            Console.ReadKey();
+
         }
         static void Supervisor(string user,string nombre,DateTime ft) 
         {
